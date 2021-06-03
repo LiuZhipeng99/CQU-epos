@@ -1,0 +1,90 @@
+/**
+ * vim: filetype=c:fenc=utf-8:ts=4:et:sw=4:sts=4
+ *
+ * Copyright (C) 2013 Hong MingJian<hongmingjian@gmail.com>
+ * All rights reserved.
+ *
+ * This file is part of the EPOS.
+ *
+ * Redistribution and use in source and binary forms are freely
+ * permitted provided that the above copyright notice and this
+ * paragraph and the following disclaimer are duplicated in all
+ * such forms.
+ *
+ * This software is provided "AS IS" and without any express or
+ * implied warranties, including, without limitation, the implied
+ * warranties of merchantability and fitness for a particular
+ * purpose.
+ *
+ */
+#if defined(__WIN32__) || defined(__CYGWIN__)
+#include <stddef.h>
+#include <string.h>
+#include "kernel.h"
+#include "dosfs.h"
+
+typedef unsigned long  DWORD;
+typedef unsigned long  ULONG;
+typedef unsigned short USHORT;
+typedef          short WORD;
+typedef unsigned char  UCHAR;
+typedef unsigned char  BYTE;
+
+/**
+ * These definitions come from WinNT.h of Microsoft
+ */
+#define IMAGE_DOS_SIGNATURE 0x5a4d
+
+typedef struct _IMAGE_DOS_HEADER {  // DOS .EXE header
+    USHORT e_magic;  // must contain "MZ"
+    USHORT e_cblp;  // number of bytes on the last page of the file
+    USHORT e_cp;  // number of pages in file
+    USHORT e_crlc;  // relocations
+    USHORT e_cparhdr;  // size of the header in paragraphs
+    USHORT e_minalloc; // minimum and maximum paragraphs to allocate
+    USHORT e_maxalloc;
+    USHORT e_ss;  // initial SS:SP to set by Loader
+    USHORT e_sp;
+    USHORT e_csum;  // checksum
+    USHORT e_ip;  // initial CS:IP
+    USHORT e_cs;
+    USHORT e_lfarlc;  // address of relocation table
+    USHORT e_ovno;  // overlay number
+    USHORT e_res[4];  // resevered
+    USHORT e_oemid;  // OEM id
+    USHORT e_oeminfo;  // OEM info
+    USHORT e_res2[10]; // reserved
+    ULONG  e_lfanew; // address of new EXE header
+} IMAGE_DOS_HEADER, *PIMAGE_DOS_HEADER;
+
+typedef struct _IMAGE_FILE_HEADER {
+    USHORT  Machine;
+    USHORT  NumberOfSections;   // Number of sections in section table
+    ULONG   TimeDateStamp;   // Date and time of program link
+    ULONG   PointerToSymbolTable;  // RVA of symbol table
+    ULONG   NumberOfSymbols;   // Number of symbols in table
+    USHORT  SizeOfOptionalHeader;  // Size of IMAGE_OPTIONAL_HEADER in bytes
+    USHORT  Characteristics;
+} IMAGE_FILE_HEADER, *PIMAGE_FILE_HEADER;
+
+typedef struct _IMAGE_DATA_DIRECTORY {
+    DWORD VirtualAddress;  // RVA of table
+    DWORD Size;   // size of table
+} IMAGE_DATA_DIRECTORY, *PIMAGE_DATA_DIRECTORY;
+
+#define IMAGE_NUMBEROF_DIRECTORY_ENTRIES    16
+
+typedef struct _IMAGE_OPTIONAL_HEADER {
+    USHORT  Magic;    // not-so-magical number
+    UCHAR   MajorLinkerVersion;   // linker version
+    UCHAR   MinorLinkerVersion;
+    ULONG   SizeOfCode;    // size of .text in bytes
+    ULONG   SizeOfInitializedData;  // size of .bss (and others) in bytes
+    ULONG   SizeOfUninitializedData;  // size of .data,.sdata etc in bytes
+    ULONG   AddressOfEntryPoint;  // RVA of entry point
+    ULONG   BaseOfCode;    // base of .text
+    ULONG   BaseOfData;    // base of .data
+    ULONG   ImageBase;    // image base VA
+    ULONG   SectionAlignment;   // file section alignment
+    ULONG   FileAlignment;   // file alignment
+    USHORT  MajorOperatingSystemVersion; // OS version required to run
