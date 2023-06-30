@@ -1,0 +1,34 @@
+# CMake build artifacts
+/build/
+/CMakeCache.txt
+/CMakeFiles/
+/CMakeScripts/
+/CMakeTmp/
+/CMakeLists.txt.user
+/CMakeLists.txt.user.*.cache
+
+# Compiled binaries
+/*.exe
+/*.dll
+/*.so
+/*.dylib
+
+# IDE-specific files and directories
+.vscode/
+.idea/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+
+# Generated files
+/Makefile
+/Makefile.*
+/CMakeFiles/
+/CMakeCache.txt
+/CMakeScripts/
+/CMakeTmp/
+/*.cmake
+/*.cmake.in
+
+# Miscellaneous
+/.DS_Store
