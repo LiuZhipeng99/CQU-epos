@@ -1,6 +1,6 @@
 
 
-# 课程相关（实验引导PPT已丢）
+# 课程相关（实验引导PPT已无）
 重庆大学操作系统课件pdf
 
 https://www.aliyundrive.com/s/RuUYZb7jTr2
@@ -21,5 +21,7 @@ https://www.doc88.com/p-1723028676790.html
 
 other https://github.com/Jed-Z/operating-systems-lab
 
+更新：开源课程实验Docs-Linux-Kernel-Labs-Zh-Cn
 
-不做操作系统是不是不需要了解太多细节，只需要抽象理解知识点，上面的实践不用做完。
+---
+不做操作系统不需要了解太多细节，只需要抽象理解知识点，上面的实践不用做完。
